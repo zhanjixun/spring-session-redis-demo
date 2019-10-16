@@ -2,6 +2,8 @@ package com.zhanjixun.web.controller;
 
 import com.zhanjixun.web.dto.UserDTO;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.DisposableBean;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,7 +18,7 @@ import java.util.UUID;
  * @date : 2018/12/24 18:36
  */
 @Controller
-public class UserController {
+public class UserController implements InitializingBean, DisposableBean {
 
 	//生成一个机器随机码,用来识别响应的服务器
 	private final String MACHINE_ID = UUID.randomUUID().toString();
@@ -59,4 +61,13 @@ public class UserController {
 		return null;
 	}
 
+	@Override
+	public void afterPropertiesSet() throws Exception {
+		System.out.println("生成随机机器码为：" + MACHINE_ID);
+	}
+
+	@Override
+	public void destroy() throws Exception {
+
+	}
 }
