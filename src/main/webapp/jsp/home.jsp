@@ -11,6 +11,9 @@
 <h3>
     欢迎您: ${sessionScope.user.userName}
 </h3>
+<h3>
+    来自: ${sessionScope.MACHINE_ID}
+</h3>
 <br>
 </body>
 </html>

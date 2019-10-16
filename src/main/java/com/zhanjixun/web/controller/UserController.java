@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.UUID;
 
 /**
  * @author :zhanjixun
@@ -16,6 +17,9 @@ import javax.servlet.http.HttpSession;
  */
 @Controller
 public class UserController {
+
+	//生成一个机器随机码,用来识别响应的服务器
+	private final String MACHINE_ID = UUID.randomUUID().toString();
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String login() {
@@ -32,7 +36,6 @@ public class UserController {
 		return "redirect:/home";
 	}
 
-
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
 	public String welcome(HttpSession session) {
 		//简单的拦截，实际上应该使用Filter实现
@@ -40,6 +43,7 @@ public class UserController {
 		if (user == null) {
 			return "login";
 		}
+		session.setAttribute("MACHINE_ID", MACHINE_ID);
 		return "home";
 	}
 
